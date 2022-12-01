@@ -1678,8 +1678,8 @@ function luckysheet_getcelldata(txt) {
     else {
         rangetxt = rangetxt.split(":");
         let row = [], col = [];
-        row[0] = parseInt(rangetxt[0].replace(/[^0-9]/g, "")) - 1;
-        row[1] = parseInt(rangetxt[1].replace(/[^0-9]/g, "")) - 1;
+        row[0] = Math.min(parseInt(rangetxt[0].replace(/[^0-9]/g, "")), sheetdata.length) - 1;
+        row[1] = Math.min(parseInt(rangetxt[1].replace(/[^0-9]/g, "")), sheetdata.length) - 1;
         
         if (isNaN(row[0])) {
             row[0] = 0;
@@ -1694,8 +1694,8 @@ function luckysheet_getcelldata(txt) {
             return [];
         }
 
-        col[0] = ABCatNum(rangetxt[0].replace(/[^A-Za-z]/g, ""));
-        col[1] = ABCatNum(rangetxt[1].replace(/[^A-Za-z]/g, ""));
+        col[0] = Math.min(ABCatNum(rangetxt[0].replace(/[^A-Za-z]/g, "")), sheetdata[0].length - 1);
+        col[1] = Math.min(ABCatNum(rangetxt[1].replace(/[^A-Za-z]/g, "")), sheetdata[0].length - 1);
         
         if (isNaN(col[0])) {
             col[0] = 0;
