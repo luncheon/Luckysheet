@@ -766,24 +766,20 @@ const luckysheetformula = {
             let row = [], col = [];
             row[0] = parseInt(rangetxt[0].replace(/[^0-9]/g, "")) - 1;
             row[1] = parseInt(rangetxt[1].replace(/[^0-9]/g, "")) - 1;
-            if (isNaN(row[0])) {
+            if (isNaN(row[0]) && isNaN(row[1])) {
                 row[0] = 0;
-            }
-            if (isNaN(row[1])) {
                 row[1] = sheetdata.length - 1;
             }
-            if (row[0] > row[1]) {
+            if (isNaN(row[0]) || isNaN(row[1]) || row[0] > row[1]) {
                 return null;
             }
             col[0] = ABCatNum(rangetxt[0].replace(/[^A-Za-z]/g, ""));
             col[1] = ABCatNum(rangetxt[1].replace(/[^A-Za-z]/g, ""));
-            if (isNaN(col[0])) {
+            if (isNaN(col[0]) && isNaN(col[1])) {
                 col[0] = 0;
-            }
-            if (isNaN(col[1])) {
                 col[1] = sheetdata[0].length - 1;
             }
-            if (col[0] > col[1]) {
+            if (isNaN(col[0]) || isNaN(col[1]) || col[0] > col[1]) {
                 return null;
             }
 
@@ -2101,15 +2097,11 @@ const luckysheetformula = {
                 return _this.error.r;
             }
 
-            if (isNaN(col[0]) && isNaN(col[1])) {
-                return prefix + $row0 + (row[0]) + ":" + $row1 + (row[1]);
-            }
-            else if (isNaN(row[0]) && isNaN(row[1])) {
-                return prefix + $col0 + chatatABC(col[0]) + ":" + $col1 + chatatABC(col[1]);
-            }
-            else {
-                return prefix + $col0 + chatatABC(col[0]) + $row0 + (row[0]) + ":" + $col1 + chatatABC(col[1]) + $row1 + (row[1]);
-            }
+            const col0 = isNaN(col[0]) ? "" : $col0 + chatatABC(col[0]);
+            const col1 = isNaN(col[1]) ? "" : $col1 + chatatABC(col[1]);
+            const row0 = isNaN(row[0]) ? "" : $row0 + row[0];
+            const row1 = isNaN(row[1]) ? "" : $row1 + row[1];
+            return prefix + col0 + row0 + ":" + col1 + row1;
         }
     },
     downparam: function (txt, step) {
@@ -2379,15 +2371,11 @@ const luckysheetformula = {
                 }
             }
             else {
-                if (isNaN(c1) && isNaN(c2)) {
-                    return prefix + $row0 + (r1 + 1) + ":" + $row1 + (r2 + 1);
-                }
-                else if (isNaN(r1) && isNaN(r2)) {
-                    return prefix + $col0 + chatatABC(c1) + ":" + $col1 + chatatABC(c2);
-                }
-                else {
-                    return prefix + $col0 + chatatABC(c1) + $row0 + (r1 + 1) + ":" + $col1 + chatatABC(c2) + $row1 + (r2 + 1);
-                }
+                const col0 = isNaN(c1) ? "" : $col0 + chatatABC(c1);
+                const col1 = isNaN(c2) ? "" : $col1 + chatatABC(c2);
+                const row0 = isNaN(r1) ? "" : $row0 + (r1 + 1);
+                const row1 = isNaN(r2) ? "" : $row1 + (r2 + 1);
+                return prefix + col0 + row0 + ":" + col1 + row1;
             }
         }
         else if (type == "add") {
@@ -2447,15 +2435,11 @@ const luckysheetformula = {
                 }
             }
             else {
-                if (isNaN(c1) && isNaN(c2)) {
-                    return prefix + $row0 + (r1 + 1) + ":" + $row1 + (r2 + 1);
-                }
-                else if (isNaN(r1) && isNaN(r2)) {
-                    return prefix + $col0 + chatatABC(c1) + ":" + $col1 + chatatABC(c2);
-                }
-                else {
-                    return prefix + $col0 + chatatABC(c1) + $row0 + (r1 + 1) + ":" + $col1 + chatatABC(c2) + $row1 + (r2 + 1);
-                }
+                const col0 = isNaN(c1) ? "" : $col0 + chatatABC(c1);
+                const col1 = isNaN(c2) ? "" : $col1 + chatatABC(c2);
+                const row0 = isNaN(r1) ? "" : $row0 + (r1 + 1);
+                const row1 = isNaN(r2) ? "" : $row1 + (r2 + 1);
+                return prefix + col0 + row0 + ":" + col1 + row1;
             }
         }
     },
